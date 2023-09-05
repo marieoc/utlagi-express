@@ -1,0 +1,53 @@
+<%- include('../includes/_EditorPageHeader.ejs') %>
+<main class="container admin-account-page">
+        <div>
+            <nav class="breadcrumb">
+                <ul>
+                    <li><a href="/">Accueil</a></li>
+                    <li><a href="/admin">Mon espace administrateur</a></li>
+                    <li><a href="/gerer/article">Gérer l'article</a></li>
+                </ul>
+            </nav>
+            
+            <div class="account-section-wrapper">
+                <h1>Bonjour, Administrateur !</h1>
+                <div class="dashboard admin-section modify-form-wrapper">
+                    <div class="flex-center flex-col w-full">
+                        <h2>Gérer l'article</h2>
+                        <form class="article-form" action="/admin/gerer/article/<%= article.slug %>" method="POST" encType="multipart/form-data">
+                            <div class="flex">
+                                <div class="block">
+                                    <div class="drop-zone__wrapper">
+                                        <div role="button" class="drop-zone article-drop-zone">
+                                            <span class="drop-zone__prompt">Glisser le fichier ou cliquer pour télécharger</span>
+                                            <input type="file" name="imageFile" accept="image/png, image/jpeg" class="drop-zone__input" />        
+                                        </div>
+                                    </div>
+                                    
+                                    <label for="articleTitle">Titre de l'article :
+                                        <input id="articleTitle" name="title" type="text" value="<%= article.title %>" />
+                                    </label>
+                                    
+                                    <label>Contenu de l'article (SVG non autorisés):
+                                        <textarea class="article-content" name="content" rows="25"><%= article.content %></textarea>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="create-article-btn__wrapper flex-btn-wrapper">
+                                <button id="ModifyArticleButton" type="submit" class="create-article__btn primary-btn">Modifier l'article</button>
+                                <button
+                                    id="DeleteArticleButton"
+                                    class="delete-article__btn"
+                                    data-article="<%= JSON.stringify(article) %>"
+                                >
+                                    Supprimer l'article
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </main>
+<%- include('../includes/_footer.ejs') -%>

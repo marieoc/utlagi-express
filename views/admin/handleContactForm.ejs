@@ -1,0 +1,46 @@
+<%- include('../includes/_header.ejs') %>
+<main class="container admin-account-page">
+    <div>
+        <nav class="breadcrumb">
+            <ul>
+                <li><a href="/">Accueil</a></li>
+                <li><a href="/admin">Mon espace administrateur</a></li>
+                <li><a href="/admin/contact/<%= contact._id %>">Répondre à l'email de contact</a></li>
+            </ul>
+        </nav>
+        
+        <div class="account-section-wrapper">
+            <h1>Bonjour, Administrateur !</h1>
+            <div class="dashboard admin-section modify-form-wrapper">
+                <div class="flex-col w-full">
+                    <h2>Répondre à l'email de contact</h2>
+                    <div class="w-full flex-center flex-col">
+                        <div class="info-contact-form w-full flex-center flex-col">
+                            <p><span class="bold">Nom/Prénom :</span> <%= contact.name %></p>
+                            <p><span class="bold">Email :</span> <%= contact.email %></p>
+                            <p><span class="bold">Object :</span> <%= contact.subject %></p>
+                            <p><span class="bold">Message :</span> <%= contact.message %></p>
+                        </div>
+                        <div class="answer-contact-form__wrapper flex-center">
+                            <form action="" method="POST" class="w-full flex-center flex-col answer-contact-form">
+                                <label>
+                                    <input type="hidden" name="email" value="monadresse@gmail.adresse" />
+                                </label>
+                                <label>
+                                    <input type="hidden" name="subject" value="<%= contact.subject %>" />
+                                </label>
+                                <label class="w-full" for="message">Réponse :
+                                    <textarea class="w-full" id="message" name="message"></textarea>
+                                </label>
+                                <div class="answer-btn__wrapper w-full flex-center flex-col">
+                                    <button class="primary-btn">Envoyer</button>
+                                </div>
+                            </form>    
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>        
+</main>
+<%- include('../includes/_footer.ejs') %>

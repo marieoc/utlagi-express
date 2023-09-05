@@ -1,0 +1,91 @@
+<!-- both for adding or modify items
+encType="multipart/form-data" allows files to be sent through a POST request
+-->
+
+<!-- form for book product -->
+<!-- create different form for different products depending on option/select -->
+<!-- bonus: add another form for adding more select options -->
+<form class="item-form" action="/admin/ajouter/item" method="POST" encType="multipart/form-data">
+    <div class="flex">
+        <div class="block">
+            <label for="bookTitle">Nom du livre :
+                <input required id="bookTitle" name="title" type="text" />
+            </label>
+            
+            <label for="authors">Auteur(s) :
+                <input required id="authors" name="authors" type="text" />
+            </label>
+            
+            <label for="price"> Prix :
+                <input required id="price" name="price" type="text" />
+            </label>
+            
+            <label for="description">Description du livre :
+                <input required id="description" name="description" type="text" />
+            </label>
+            
+            <label for="category">Catégorie du livre :
+                <input required id="category" name="category" type="text" />
+            </label>
+            
+        </div>
+        <div class="drop-zone__wrapper flex-center">
+            <div role="button" class="drop-zone item-drop-zone">
+                <span class="drop-zone__prompt">Glisser le fichier ou cliquer pour télécharger</span>
+                <input required type="file" name="imageFile" accept="image/png, image/jpeg" class="drop-zone__input" />        
+            </div>
+        </div>
+    </div>
+    
+    <div class="block">
+        <label for="synopsis">Synopsis : 
+        <textarea required id="synopsis" name="synopsis" rows="10"></textarea></label>
+
+        
+        <label for="ugc">UGC :
+            <input required id="ugc" name="ugc" type="text" />
+        </label>
+        
+        
+        <label for="weight"> Poids :
+            <input required id="weight" name="weight" type="text" />
+        </label>
+        
+        <label for="name">Quantité : 
+            <input required id="name" name="qty" type="text" />
+        </label>
+        
+        <label for="size">Dimensions :
+            <input required id="size" name="size" type="text" />
+        </label>
+        
+        <label for="isbn">ISBN :
+            <input required id="isbn" name="isbn" type="text" />
+        </label>
+        
+        <label for="pages">Nombre de pages :
+            <input required id="pages" name="pages" type="text" />
+        </label>
+        
+        <label for="format">Format :
+            <input required id="format" name="format" type="text" />
+        </label>
+        
+        <label for="illustrations">Illustrations :
+            <input required id="illustrations" name="illustrations" type="text" />
+        </label>
+        
+        <label for="languages">Langues :
+            <input required id="languages" name="languages" type="text" />
+        </label>
+        
+        <label for="releaseDate">Date de sortie :
+            <input required id="releaseDate" name="releaseDate" type="text" />
+        </label>
+        
+    </div>
+    <div class="create-item-btn__wrapper flex-center">
+        <button id="addItemButton" type="submit" class="create-item__btn primary-btn">Ajouter l'item</button>
+    </div>
+    
+</form>

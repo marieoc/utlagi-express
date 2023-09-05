@@ -1,0 +1,27 @@
+<%- include('../includes/_header.ejs') -%>
+    <main class="container user-account-page">
+        <div>
+            <nav class="breadcrumb">
+                <ul>
+                    <li><a href="/">Accueil</a></li>
+                    <li><a href="/moncompte">Mon compte</a></li>
+                    <li><a href="/moncompte/listedenvie">Ma liste d'envie</a></li>
+                </ul>
+            </nav>
+            
+            <div class="account-section-wrapper">
+                <h1>Bonjour, <%= session.username %> !</h1>
+                <div class="dashboard">
+                    <div class="flex-col">
+                        <h2>Ma liste d'envie</h2>
+                        
+                        <!-- Render react component here -->
+                        <div id="wishlistSection" class="list wishlist__wrapper"></div>
+                        
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+<%- include('../includes/_footer.ejs') -%>

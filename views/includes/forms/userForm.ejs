@@ -1,0 +1,33 @@
+<form class="user-form" action="/moncompte/gerer/informations" method="POST" encType="multipart/form-data">
+    <div class="flex w-full">
+        <div class="block w-full">
+            <% if (validationMsg && validationMsg.length > 0) { %>
+                <% for (let msg of validationMsg) { %>
+                    <div class="validation-msg">
+                      <%= msg.data %>
+                    </div>
+                <% } %>
+            <% } %>
+            
+            <label for="lname">Nom :
+                <input id="lname" name="lname" type="text" value="<%= user.lname %>" />
+            </label>
+            
+            <label for="fname">Prénom :
+                <input id="fname" name="fname" type="text" value="<%= user.fname %>" />
+            </label>
+            
+            <label for="email">Adresse mail :
+                <input id="email" name="email" type="email" value="<%= user.email %>" />
+            </label>
+            
+            <label for="tel">Téléphone :
+                <input id="tel" name="tel" type="tel" value="<%= user.phoneNumber %>" />
+            </label>
+        </div>
+    </div>
+    <div class="modify-data-btn__wrapper flex-center">
+        <button id="modifyUserButton" type="submit" class="modify-data__btn primary-btn">Modifier mes informations personnelles</button>
+    </div>
+    
+</form>

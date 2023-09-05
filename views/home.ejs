@@ -1,0 +1,70 @@
+<%- include('./includes/_header.ejs') -%>
+    <main class="container homepage">
+        <h1 aria-label="Page d'accueil">Accueil</h1>
+        
+        <!-- Render React componant slider -->
+        <div id="sliderWrapper" class="slider-wrapper" data-articles="<%= JSON.stringify(articles) %>"></div>
+            
+        
+        <!-- New Products Section -->
+        <section class="new-items-wrapper">
+            <h2>Nos dernières nouveautés</h2>
+                <div class="new-items-list">
+                    <!-- for loop to display the four last new items -->
+                    <% if (products.length === 0) { %>
+                    <% 'Il n\'y a actuellement aucune nouveauté dans cette section' %>
+                    <% } else { %>
+                        <% for (let i=0; i < products.length; i++) { %>
+                            <div>
+                                <a class="img-wrapper" href="/produit/<%= products[i].slug %>" title="<%=products[i].title%>" >
+                                    <img src="img/products/<%=products[i].image%>" alt="<%=products[i].title%>">
+                                </a>
+                                <div class="item-info">
+                                    <p><%= products[i].title.length > 23 ? products[i].title.substring(0, 23) + '...' : products[i].title %></p>
+                                    <p><%= products[i].authors %></p>
+                                    <p><%= products[i].price %> &euro;</p>
+                                </div>
+                            </div>    
+                        <% } %>
+                    <% } %>
+                </div>
+            <div class="btn-next-wrapper">
+                <a class="primary-btn" href="/boutique">Suite du catalogue</a>
+            </div>
+        </section>
+        
+        <!-- Company description section -->
+        <section class="home-description flex-center">
+            <div class="border-wrapper">
+                <div class="border flex-center">
+                    <h2>Bienvenue chez les Editions Ùtlagi</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at malesuada lectus, ut tempor justo. Pellentesque dignissim sem at fringilla fringilla. Nunc posuere ante urna, id ultrices mi elementum vitae. Vivamus faucibus sagittis enim, et consectetur erat finibus vitae. Nulla in ornare turpis, ac hendrerit elit. Aenean lectus magna, porttitor sed purus eu, sollicitudin porta urna.</p>
+                    <p>Donec eget sapien eu orci venenatis semper. Etiam elementum turpis tellus, id interdum nibh bibendum venenatis. Nulla sem purus, facilisis nec consequat quis, luctus vitae dolor. Integer pretium tortor dignissim iaculis auctor. Nulla luctus diam sed orci condimentum, sit amet interdum dui dictum. Maecenas in varius libero. Duis turpis tortor, consequat sit amet risus ac, faucibus hendrerit velit. Sed eu enim eu mauris sodales semper quis nec nibh.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Newsletter section -->
+        <section class="newsletter-form-wrapper flex-center">
+            <form class="newsletter-form flex-center" id="newsletterForm" action="/newsletter" method="POST">
+                <fieldset class="flex-center">
+                    <legend>
+                        <h2>Recevez notre newsletter</h2>
+                    </legend>
+                <div class="flex-center">
+                    <label for="username">Nom / prénom :</label>
+                    <input type="text" id="username" name="name"/>
+                </div>
+                <div class="flex-center">
+                    <label for="usermail">Adresse mail :</label>
+                    <input type="email" id="usermail" name="mail"/>
+                </div>
+                <div class="flex-center">
+                    <button type="submit">Je m'inscris</button>
+                </div>
+                </fieldset>
+            </form>
+        </section>
+        
+    </main>
+<%- include('./includes/_footer.ejs') -%>

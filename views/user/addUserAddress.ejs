@@ -1,0 +1,54 @@
+<%- include('../includes/_header.ejs') -%>
+    <main class="container user-account-page">
+        <div>
+            <nav class="breadcrumb">
+                <ul>
+                    <li><a href="/">Accueil</a></li>
+                    <li><a href="/moncompte">Mon compte</a></li>
+                    <li><a href="/moncompte/ajouter/adresse">Ajouter une adresse</a></li>
+                </ul>
+            </nav>
+            
+            <div class="account-section-wrapper addressform-wrapper center">
+                <h1>Bonjour, <%= session.username %> !</h1>
+                <div class="dashboard">
+                    <div class="flex-col flex-center w-full">
+                        <h2>Ajouter une adresse</h2>
+                        
+                        <form class="address-form" action="/moncompte/ajouter/adresse" method="POST" encType="multipart/form-data">
+                            <div class="flex">
+                                <div class="block">
+                                    <label for="street">Rue :
+                                        <input id="street" name="street" type="text" />
+                                    </label>
+                                    <label for="zip">Code postal :
+                                        <input id="zip" name="zipCode" type="text" />
+                                    </label>
+                                    <label for="city">Ville :
+                                        <input id="city" name="city" type="text" />
+                                    </label>
+                                    <label for="country">Pays :
+                                        <input id="country" name="country" type="text" />
+                                    </label>
+                                </div>
+                                <div class="address-checkbox checkbox-wrapper">
+                                    <input id="billingAddress" type="checkbox" name="billingAddress" />
+                                    <label for="billingAddress">Cette adresse est mon adresse de facturation</label>
+                                </div>
+                                <div class="address-checkbox checkbox-wrapper">
+                                    <input id="deliveryAddress" type="checkbox" name="deliveryAddress" />
+                                    <label for="deliveryAddress">Cette adresse est mon adresse de livraison</label>
+                                </div>
+                            </div>
+                            <div class="modify-data-btn__wrapper flex-center">
+                                <button type="submit" class="modify-data__btn primary-btn">Ajouter une adresse</button>
+                            </div>
+                            
+                        </form>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+<%- include('../includes/_footer.ejs') -%>

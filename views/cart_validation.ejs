@@ -1,0 +1,24 @@
+<%- include('./includes/_header.ejs') %>
+    <main class="container">
+        <div>
+            <nav class="breadcrumb">
+                <ul>
+                    <li><a href="/">Accueil</a></li>
+                    <li><a href="/panier">Valider mon panier</a></li>
+                </ul>
+            </nav>
+            
+            <div class="shoppingcart-section-wrapper">
+                <h1>Valider mon panier</h1>
+                <% if (!session.slug) { %>
+                    <div class="require-connection-wrapper">
+                        <p>Vous devez vous connecter pour poursuivre la commande</p>
+                    </div>
+                <% } else { %>
+                <!-- Render React component -->
+                <div id="cartValidationSection" class="shoppingcart-content"></div>
+                <% } %>
+            </div>
+        </div>
+    </main>
+<%- include('./includes/_footer.ejs') %>

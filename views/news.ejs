@@ -1,0 +1,41 @@
+<%- include('./includes/_header.ejs') -%>
+    <main class="container">
+        <div>
+            <nav class="breadcrumb">
+                <ul>
+                    <li><a href="/">Accueil</a></li>
+                    <li><a href="/actualites">Actualités</a></li>
+                </ul>
+            </nav>
+            <div class="news-section-wrapper flex-center flex-col">
+                <h1>Actualités</h1>
+                <section class="news-grid flex-center flex-col">
+                    <% if (articles.length === 0) { %>
+                    <% 'Il n\'y a pas d\'articles dans cette section' %>
+                    <% } else { %>
+                        <% for (let i=0; i < articles.length; i++) { %>
+                            <div>
+                                <a href="/actualites/<%= articles[i].slug %>" class="img-wrapper" title="<%= articles[i].title %>" >
+                                    <img src="/img/articles/<%= articles[i].image %>" alt="<%= articles[i].title %>">
+                                </a>
+                                <div class="news-text">
+                                    <p class="news-title">
+                                        <%= articles[i].title.length > 35 ? articles[i].title.substring(0, 35) + '...' : articles[i].title %>
+                                    </p>
+                                    <p>
+                                        <%- articles[i].content.substring(0, 150) + '...' %>
+                                    </p>
+                                </div>
+                                <div class="news-btn-wrapper">
+                                    <a class="primary-btn" href="/actualites/<%= articles[i].slug %>" class="read-next-button">Lire l'article</a>
+                                </div>
+                            </div>
+                        <% } %>
+                    <% } %>
+                </section>
+            </div>
+        </div>
+    </main>
+<%- include('./includes/_footer.ejs') -%>
+
+<!-- limiter le nombre de mot -->

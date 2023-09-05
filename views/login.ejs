@@ -1,0 +1,80 @@
+<%- include('./includes/_header.ejs') -%>
+    <main class="container login-page">
+        <nav class="breadcrumb">
+            <ul>
+                <li><a href="/">Accueil</a></li>
+                <li><a href="">Connexion</a></li>
+            </ul>
+        </nav>
+        <div class="login-section-wrapper">
+            <h1>Mon compte utilisateur</h1>
+            
+            <div class="forms-wrapper">
+                <div class="signup-form-wrapper">
+                    <h2>Nouvel utilisateur ?</h2>
+                    
+                    <form id="signupForm" class="signup-form" action="/connexion/signup" method="POST">
+                        <% if (validationMsg !=null) { %>
+                              <div class="validation-msg">
+                                <%= validationMsg %>
+                              </div>
+                        <% } %>
+                        
+                        <label for="signup-user-name">Prénom <input id="signup-user-name" type="text" name="name" required /></label>
+                        <% if (errors.name !=null) { %>
+                              <div class="error-msg">
+                                <%= errors.name %>
+                              </div>
+                        <% } %>
+                        
+                        
+                        <label for="signup-user-email">Adresse de messagerie <input id="signup-user-email" type="email" name="email" required /></label>
+                        
+                        <% if (errors.email !=null) { %>
+                              <div class="error-msg">
+                                <%= errors.email %>
+                              </div>
+                        <% } %>
+                        
+                        <label for="signup-user-pwd">Mot de passe <input id="signup-user-pwd" type="password" name="password" required /></label>
+                        
+                        <% if (errors.password !=null) { %>
+                              <div class="error-msg">
+                                <%= errors.password %>
+                              </div>
+                        <% } %>
+                        
+                        <p class="data-info">Vos données personnelles seront utilisées pour gérer l'accès à votre compte, en savoir plus sur notre <a href="" class="policy">politique de confidentialité.</a></p>
+                        <div class="sign-btn-wrapper">
+                            <button id="signupBtn" class="primary-btn" type="submit">S'enregistrer</button>
+                            
+                        </div>
+                    </form>
+                </div>
+                
+                <div class="login-form-wrapper">
+                    <h2>Connexion</h2>
+                    <form id="loginForm" class="login-form" action="/connexion/login" method="POST">
+                        
+                        <% if (message !=null) { %>
+                              <div class="error-msg">
+                                <%= message %>
+                              </div>
+                        <% } %>
+                        
+                        <label for="login-user-email">Adresse de messagerie <input id="login-user-email" type="email" name="email" required /></label>
+                        
+                        <label for="login-user-pwd">Mot de passe <input id="login-user-pwd" type="password" name="password" required /></label>
+                        
+                        <a class="pwd-link" href="">Mot de passe perdu ?</a>
+                        
+                        <div class="login-btn-wrapper">
+                            <button id="loginBtn" class="primary-btn" type="submit">Se connecter</button>
+                        </div>
+                    </form>
+                    
+                </div>
+            </div>
+        </div>
+    </main>
+<%- include('./includes/_footer.ejs') -%>

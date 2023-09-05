@@ -1,0 +1,122 @@
+<%- include('../includes/_header.ejs') %>
+<main class="container admin-account-page">
+        <div>
+            <nav class="breadcrumb">
+                <ul>
+                    <li><a href="/">Accueil</a></li>
+                    <li><a href="/admin">Mon espace administrateur</a></li>
+                    <li><a href="/gerer/item">Gérer l'item</a></li>
+                </ul>
+            </nav>
+            
+            <div class="account-section-wrapper">
+                <h1>Bonjour, Administrateur !</h1>
+                <div class="dashboard admin-section modify-form-wrapper">
+                    <div class="flex-center flex-col w-full">
+                        <h2>Gérer l'item</h2>
+                        <form class="item-form" action="/admin/gerer/item/<%= product.slug %>" method="POST" encType="multipart/form-data">
+                            <div class="flex">
+                                <div class="block">
+                                    <label for="bookTitle">Nom du livre :
+                                        <input id="bookTitle" name="title" type="text" value="<%= product.title %>" />
+                                    </label>
+                                    
+                                    <label for="authors">Auteur(s) :
+                                        <input id="authors" name="authors" type="text" value="<%= product.authors %>" />
+                                    </label>
+                                    
+                                    <label for="description">Description du livre :
+                                        <input id="description" name="description" type="text" value="<%= product.description %>" />
+                                    </label>
+                                    
+                                    <label for="category">Catégorie du livre :
+                                        <input id="category" name="category" type="text" value="<%= product.category %>" />
+                                    </label>
+                                    
+                                    <label for="languages">Langues :
+                                    <input id="languages" name="languages" type="text" value="<%= product.languages %>" />
+                                </label>
+                                    
+                                </div>
+                                <div class="drop-zone__wrapper">
+                                    <div role="button" class="drop-zone item-drop-zone">
+                                        <span class="drop-zone__prompt">Glisser le fichier ou cliquer pour télécharger</span>
+                                        <input type="file" name="imageFile" accept="image/png, image/jpeg" class="drop-zone__input" />        
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            
+                            <div class="block">
+                                <label for="synopsis">Résumé : 
+                                    <textarea id="synopsis" name="synopsis" rows="10"><%= product.synopsis %></textarea>
+                                </label>
+                                
+                                <label for="illustrations">Illustrations :
+                                    <input id="illustrations" name="illustrations" type="text" value="<%= product.illustrations %>" />
+                                </label>
+                                
+                                <label for="ugc">UGC :
+                                    <input id="ugc" name="ugc" type="text" value="<%= product.ugc %>" />
+                                </label>
+                                
+                                <label for="price"> Prix :
+                                    <input id="price" name="price" type="text" value="<%= product.price %>" />
+                                </label>
+                                
+                                <label for="pages">Nombre de pages :
+                                    <input id="pages" name="pages" type="text" value="<%= product.pages %>" />
+                                </label>
+                                
+                                <label for="format">Format :
+                                    <input id="format" name="format" type="text" value="<%= product.format %>" />
+                                </label>
+                                
+                                <label for="weight"> Poids :
+                                    <input id="weight" name="weight" type="text" value="<%= product.weight %>" />
+                                </label>
+                                
+                                <label for="qty">Quantité : 
+                                    <input id="qty" name="qty" type="text" value="<%= product.quantity %>" />
+                                </label>
+                                
+                                <label for="size">Taille:
+                                    <input id="size" name="size" type="text" value="<%= product.size %>" />
+                                </label>
+                                
+                                <label for="isbn">ISBN :
+                                    <input id="isbn" name="isbn" type="text" value="<%= product.isbn %>" />
+                                </label>
+                                
+                                
+                                <label for="releaseDate">Date de sortie :
+                                    <input id="releaseDate" name="releaseDate" type="text" value="<%= product.releaseDate %>" />
+                                </label>
+                                
+                                
+                                <!--
+                                <label for="bg">Image de fond :
+                                    <input id="bg" type="file" />
+                                </label> -->
+                            </div>
+                            <div class="create-item-btn__wrapper flex-btn-wrapper">
+                                <button id="addItemButton" type="submit" class="create-item__btn primary-btn">Modifier l'item</button>
+                                <button
+                                    id="DeleteItemButton"
+                                    class="delete-item__btn"
+                                    data-product="<%= JSON.stringify(product) %>"
+                                >
+                                    Supprimer l'item
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </main>
+
+
+<%- include('../includes/_footer.ejs') %>
+

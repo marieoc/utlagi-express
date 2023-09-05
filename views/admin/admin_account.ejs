@@ -1,0 +1,225 @@
+<%- include('../includes/_EditorPageHeader.ejs') -%>
+    <main class="container admin-account-page">
+        <div>
+            <nav class="breadcrumb">
+                <ul>
+                    <li><a href="/">Accueil</a></li>
+                    <li><a href="/admin">Mon espace administrateur</a></li>
+                </ul>
+            </nav>
+            
+            <div class="account-section-wrapper">
+                <h1>Bonjour, Administrateur !</h1>
+                <div class="dashboard admin-section">
+                    <div class="side-navbar">
+                        <h2>Administrateur</h2>
+                        <nav>
+                            <ul>
+                                <li>
+                                    <button class="dashboard-tab active-sections-tab">
+                                        <p class="navbar-tab">Aperçu général</p>
+                                        <p class="navbar-tab-details">Aperçu de vos informations générales</p>
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="dashboard-tab">
+                                        <p class="navbar-tab">Mon profil</p>
+                                        <p class="navbar-tab-details">Changer ses informations personnelles ou son mot de passe</p>
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="dashboard-tab">
+                                        <p class="navbar-tab">Ajouter un item</p>
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="dashboard-tab">
+                                        <p class="navbar-tab">Ajouter un article</p>
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="dashboard-tab">
+                                        <p class="navbar-tab">Gestion des items</p>
+                                        <p class="navbar-tab-details">Aperçu des items - modifier ou supprimer un item</p>
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="dashboard-tab">
+                                        <p class="navbar-tab">Gestion des articles</p>
+                                        <p class="navbar-tab-details">Aperçu des articles - modifier ou supprimer un article</p>
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="dashboard-tab">
+                                        <p class="navbar-tab">Messagerie</p>
+                                        <p class="navbar-tab-details">Consulter les formulaires de contacts reçus</p>
+                                    </button>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                    
+                    <div class="admin-sections-wrapper sections-wrapper">
+                        
+                        <section class="section general-overview-section">
+                            <h2>Aperçu général</h2>
+                            <div class="general-data__wrapper flex-center flex-col">
+                                <div class="w-full">
+                                    <h3>Produits</h3>
+                                    <div>
+                                        <p>Nombre total de produits : 
+                                            <span>
+                                                <%= products.length %>
+                                            </span>
+                                        </p>
+                                        <p>Nombre total de produits en rupture de stock :
+                                            <span>
+                                                <% if (itemsOutOfStock) { %>
+                                                    <%= itemsOutOfStock.length %>
+                                                <% } %>
+                                            </span>
+                                        </p>
+                                        <p>Nombre de produits dont la quantité est inférieure à 5 :
+                                            <span>
+                                                <% const soonOutOfStock = [] %>
+                                                <% for (let product of products) { %>
+                                                    <% if (parseInt(product.quantity) > 0 && parseInt(product.quantity) < 5) { %>
+                                                        <% soonOutOfStock.push(product) %>
+                                                    <% } %>
+                                                <% } %>
+                                                <%= soonOutOfStock.length %>
+                                            </span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="w-full">
+                                    <h3>Articles</h3>
+                                    <div>
+                                        <p>Nombre total d'articles :
+                                            <span>
+                                                <%= articles.length %>
+                                            </span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="w-full">
+                                    <h3>Commandes</h3>
+                                    <div>
+                                        <p>Nombre de commandes passées :
+                                            <span>
+                                                Il n'y a aucune commande pour le moment
+                                            </span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        
+                        <section class="section profil-section">
+                            <h2>Changer mes informations personnelles</h2>
+                            <div class="modify-data">
+                                <%- include('../includes/forms/adminForm.ejs') %>
+                                <%- include('../includes/forms/adminPasswordForm.ejs') %>
+                            </div>
+                        </section>
+                        
+                        <section class="section add-item-section">
+                            <h2>Ajouter un item</h2>
+                            <div class="add-item-form-wrapper">
+                                <%- include('../includes/forms/itemForm.ejs') %>
+                            </div>
+                        </section>
+                        
+                        <section class="section add-article-section">
+                            <h2>Ajouter un article</h2>
+                            <div class="add-article-form-wrapper">
+                                <%- include('../includes/forms/articleForm.ejs') %>
+                            </div>
+                        </section>
+                        
+                        <section class="section item-management">
+                            <h2>Gestion des items</h2>
+                            <div class="item-list">
+                                <% for (let i=0; i < products.length; i++) { %>
+                                    <div class="item-card">
+                                        <div class="item-data-wrapper">
+                                            <div class="img-wrapper">
+                                                <img src="/img/products/<%= products[i].image %>" alt="<%= products[i].title %>" />
+                                            </div>
+                                            <div class="item-data">
+                                                <p><span class="bold-title">Titre : </span><%= products[i].title %></p>
+                                                <p><span class="bold-title">Auteur(s) : </span><%= products[i].authors %></p>
+                                                <p><span class="bold-title">Quantité : </span>
+                                                    <% if (parseInt(products[i].quantity) === 0) { %>
+                                                        <span class="out-of-stock-msg">En rupture de stock</span>
+                                                    <% } else { %>
+                                                        <%= products[i].quantity %>
+                                                    <% } %>
+                                                </p>
+                                                <p><span class="bold-title">Prix : </span><%= products[i].price %> &euro;</p>
+                                                <p><span class="bold-title">ISBN : </span><%= products[i].isbn %></p>
+                                            </div>
+                                        </div>
+                                        <div class="btn-wrapper">
+                                            <a href="/admin/gerer/item/<%= products[i].slug %>" class="primary-btn">Gérer</a>
+                                        </div>
+                                    </div>
+                                <% } %>
+                            </div>
+                        </section>
+                        
+                        <section class="section article-management">
+                            <h2>Gestion des articles</h2>
+                            <div class="list">
+                                <% for (let i=0; i < articles.length; i++) { %>
+                                    <div class="article-card">
+                                        <div class="article-data-wrapper">
+                                            <div class="article-img-wrapper">
+                                                <img src="/img/articles/<%= articles[i].image %>" alt="<%= articles[i].title %>" />
+                                            </div>
+                                            <div>
+                                                <div class="item-data">
+                                                    <p><span class="bold-title">Titre : </span><%= articles[i].title %></p>
+                                                </div>
+                                                <div class="item-data">
+                                                    <p><span class="bold-title">Date : </span><%= articles[i].date %></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="btn-wrapper">
+                                            <a href="/admin/gerer/article/<%= articles[i].slug %>" class="primary-btn">Gérer</a>
+                                        </div>
+                                    </div>
+                                <% } %>
+                            </div>
+                        </section>
+                        <section class="section">
+                            <h2>Messagerie</h2>
+                            <div class="contact-list">
+                                <!-- include -->
+                                <% if (contacts) { %>
+                                    <div class="contact-wrapper flex-center flex-col w-full">
+                                        <% for (let contact of contacts) { %>
+                                            <div class="contact-form-card">
+                                                <div>
+                                                    <p><span class="bold">Adresse mail :</span> <%= contact.email %></p>
+                                                    <p><span class="bold">Objet :</span> <%= contact.subject %></p>
+                                                </div>
+                                                <div class="contact-form-card-btn__wrapper">
+                                                    <a href="/admin/contact/<%= contact._id %>" class="primary-btn">Répondre</a>
+                                                </div>
+                                            </div>
+                                        <% } %>
+                                    </div>
+                                <% } %>
+                            </div>
+                        </section>
+                        
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+<%- include('../includes/_footer.ejs') -%>
+

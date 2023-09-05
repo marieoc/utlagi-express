@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="description" content="Ceci est une description...">
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
+        <link rel="stylesheet" href="/css/normalize.css" type="text/css">
+        <link rel="stylesheet" href="/css/style.css" type="text/css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+        <link rel="icon" type="image/png" href="/img/crow-ico.png">
+        <script src="https://cdn.tiny.cloud/1/siv8z1yvrvngd95ny6sq09c9kutrk0ewihjjdsogtmiu6j45/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+        
+        <title><%= title %></title>
+    </head>
+    <body>
+        <header id="editorPageHeader" class="header">
+            <div class="nav-logo-wrapper">
+                <div class="navbar-wrapper">
+                    <nav class="navbar-desktop-menu">
+                        <!-- DESKTOP MENU -->
+                        <ul class="desktop-menu">
+                            <li><a href="/">Accueil</a></li>
+                            <li><a href="/boutique">Boutique</a></li>
+                            <li><a href="/actualites">Actualités</a></li>
+                            <li><a href="/contact">Contact</a></li>
+                        </ul>
+                    </nav>
+                    
+                    <div class="header-btn">
+                        <button id="openMenu" class="active" aria-label="menu"><i class="fa-solid fa-bars"></i></button>
+                        <button id="closeMenu" aria-label="menu"><i class="fa-solid fa-xmark"></i></button>
+                    </div>
+                    <!-- MOBILE MENU -->
+                    <nav id="navbarMobile">
+                        <ul class="mobile-menu">
+                            <li><a href="/">Accueil</a></li>
+                            <li><a href="/boutique">Boutique</a></li>
+                            <li><a href="/actualites">Actualités</a></li>
+                            <li><a href="/contact">Contact</a></li>
+                            
+                            <% if (session.role === 'admin' || session.role === 'user') { %>
+                                <li><a href="/deconnexion">Déconnexion</a></li>
+                            <% } %>    
+                            <% if (session.role === 'admin') { %>
+                                <li><a class="primary-btn" href="/admin">Admin</a></li>
+                            <% } else if (session.role === 'user') { %>
+                                <li>
+                                    <a class="primary-btn" href="/moncompte">
+                                        <%= session.username.length > 8 ? session.username.substring(0, 8) + '...' : session.username %>
+                                    </a></li>
+                            <% } else if (!session.role) { %>
+                                <li><a class="primary-btn" href="/connexion">Mon compte</a></li>
+                            <% } %>
+                        </ul>
+                    </nav>
+                </div>
+                
+                <div class="title">
+                    <strong><a href="/" title="Accueil">Útlagi</a></strong>
+                </div>
+            </div>
+            
+            <div class="navbar-cart">
+                <div class="account-button-wrapper">
+                    <div class="flex">
+                        <% if (session.role === 'admin' || session.role === 'user') { %>
+                            <a class="logout-button" href="/deconnexion"><i class="fa-solid fa-right-from-bracket"></i></a>
+                        <% } %>
+                        <% if (session.role === 'admin') { %>
+                            <a class="account-button primary-btn" href="/admin">Admin</a>
+                        <% } else if (session.role === 'user') { %>
+                            <a class="account-button primary-btn" href="/moncompte">
+                                <%= session.username.length > 8 ? session.username.substring(0, 8) + '...' : session.username %>
+                            </a>
+                        <% } else if (!session.role) { %>
+                            <a class="account-button primary-btn" href="/connexion">Connexion</a>
+                        <% } %>
+                    </div>
+                </div>
+                
+                <!-- Render React -->
+                <div id="shoppingCart" class="shopping-cart-wrapper"></div>
+            </div>
+            
+        </header>

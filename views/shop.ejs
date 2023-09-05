@@ -1,0 +1,34 @@
+<%- include('./includes/_header.ejs') -%>
+    <main class="container">
+        <div>
+            <nav class="breadcrumb">
+                <ul>
+                    <li><a href="/">Accueil</a></li>
+                    <li><a href="/boutique">Boutique</a></li>
+                </ul>
+            </nav>
+            <div class="shop-wrapper flex-center flex-col">
+                <h1>Boutique</h1>
+                <section class="item-grid">
+                    <!-- render products here -->
+                    <% if (products.length === 0) { %>
+                    <% 'Il n\y a pas de produits dans cette section' %>
+                    <% } else { %>
+                        <% for (let i=0; i < products.length; i++) { %>
+                            <div>
+                                <a class="img-wrapper" href="/produit/<%= products[i].slug %>" title="<%=products[i].title%>" >
+                                    <img src="/img/products/<%= products[i].image %>" alt="<%= products[i].title %>">
+                                    </a>
+                                <div class="item-info">
+                                    <p><%= products[i].title.length > 23 ? products[i].title.substring(0, 23) + '...' : products[i].title %></p>
+                                    <p><%= products[i].authors %></p>
+                                    <p><%= products[i].price %> &euro;</p>
+                                </div>
+                            </div>
+                        <% } %>
+                    <% } %>
+                </section>
+            </div>
+        </div>
+    </main>
+<%- include('./includes/_footer.ejs') -%>

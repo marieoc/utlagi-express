@@ -1,0 +1,142 @@
+<%- include('./includes/_header.ejs') -%>
+    <main class="container product-bg-page">
+        <div>
+            <nav class="breadcrumb">
+                <ul>
+                    <li><a href="/">Accueil</a></li>
+                    <li><a href="/boutique">Boutique</a></li>
+                    <li><a href="<%= product.slug %>"><%= product.title %></a></li>
+                </ul>
+            </nav>
+            
+            
+            <div id="productSectionWrapper" class="product-section-wrapper">
+                <div class="bg-img-wrapper">
+                    <img src="/img/products/<%= product.image %>" alt="<%= product.description %>">
+                    <div class="blur"></div>
+                </div>
+                <div class="product-wrapper">
+                    <div class="product-overview">
+                        <div class="product-img-wrapper">
+                            <img src="/img/products/<%= product.image %>" alt="<%= product.description %>">
+                        </div>
+                        <div class="product-text-wrapper">
+                            <h1><%= product.title %></h1>
+                            <p class="author">de <%= product.authors %></p>
+                            <p class="price"><%= product.price %> &euro;</p>
+                            <p class="short-description"><%= product.description %></p>
+                            <div class="product-btns-wrapper">
+                                <div class="add-to-cart-btn-wrapper quantity">
+                                    <button id="addToCartBtn" class="add-to-cart-button primary-btn change-localstorage" data-product="<%= JSON.stringify(productData) %>">Ajouter au panier</button>
+                                    <span class="out-of-stock"></span>
+                                </div>
+                                <% if (session.username) { %>
+                                
+                                    <!-- render react WishList component -->
+                                    <div id="addToWishListButton-wrapper" data-product="<%= JSON.stringify(productData) %>">
+                                    </div>
+                                <% } %>
+                            </div>
+                            <div class="product-metadata">
+                                <p>UGS : <%= product.ugc %></p>
+                                <p>Catégorie : <span class="category"><%= product.category %></span></p>
+                                <p>Auteur(s) : <%= product.authors %></p> 
+                                <p>Stock : <%= product.quantity > 0 ? 'En stock' : 'En rupture de stock' %></p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="product-details">
+                        <ul class="tabs-wrapper">
+                            <li>
+                                <button class="product-section__tab active-product-tab">Description</button>
+                            </li>
+                            <li>
+                                <button class="product-section__tab">Avis (
+                                <%= product.comments ? product.comments.length : '0' %>
+                                )</button>
+                            </li>
+                        </ul>
+                        <div class="tab-description-content section">
+                            <div class ="product-attributes-section">
+                                <h2>Caractéristiques</h2>
+                                <table class="product-attributes-table">
+                                    <tbody>
+                                        <tr>
+                                            <th>Poids</th>
+                                            <td><%= product.weight %></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Dimensions</th>
+                                            <td><%= product.size %></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Auteur(s)</th>
+                                            <td><%= product.authors %></td>
+                                        </tr>
+                                        <tr>
+                                            <th>ISBN</th>
+                                            <td><%= product.isbn %></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Nombre de page</th>
+                                            <td><%= product.pages %> pages</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Format</th>
+                                            <td><%= product.format %></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Illustrations</th>
+                                            <td><%= product.illustrations %></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Langue(s)</th>
+                                            <td><%= product.languages %></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Date de parution</th>
+                                            <td><%= product.releaseDate %></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="product-summary-section">
+                                <h2>Résumé</h2>
+                                <p><%= product.synopsis %></p>    
+                            </div>
+                        </div>
+                        
+                        <div class="tab-reviews-content section">
+                            <h2>Avis (
+                            <%= product.comments ? product.comments.length : '0' %>
+                            )</h2>
+                            <div class="comments-section">
+                                <% if (product.comments) { %>
+                                    <div id="commentsWrapperRoot" data-product="<%= JSON.stringify(productData) %>"></div>
+                                <% } else { %>
+                                <div>
+                                    <p>Il n'y a pour l'instant aucun commentaire dans cette section.</p>
+                                </div>
+                                <% } %>
+                            </div>
+                            <% if (session.username) { %>
+                                <div class="comment-form-wrapper">
+                                    <form action="/produit/<%= product.slug %>/ajouter/commentaire" class="comment-form" method="POST">
+                                        <div>
+                                            <label for="comment">Laisser un commentaire :</label>
+                                            <textarea id="comment" name="comment" cols="30" rows="10"></textarea>
+                                        </div>
+                                        <div>
+                                            <input class="primary-btn" type="submit" value="Envoyer">
+                                        </div>
+                                    </form>
+                                </div>
+                            <% } %>
+                        </div>
+                    </div>
+                </div>    
+            </div>
+        </div>
+    </main>
+<%- include('./includes/_footer.ejs') -%>

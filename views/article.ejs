@@ -1,0 +1,28 @@
+<%- include('./includes/_header') -%>
+    <main class="container">
+        <div>
+            <nav class="breadcrumb">
+                <ul>
+                    <li><a href="/">Accueil</a></li>
+                    <li><a href="/actualites">Actualités</a></li>
+                    <li><a href="<%= article.slug %>"><%= article.title %></a></li>
+                </ul>
+            </nav>
+            
+            <div class="article-section-wrapper">
+                
+                <div class="img-wrapper">
+                    <img src="/img/articles/<%= article.image %>" alt="" />
+                </div>
+                <div class="article-content">
+                    <h1><%= article.title %></h1>
+                    <p>Le <%= article.date %></p>
+                    <div><%- article.content %></div>
+                </div>
+                
+            </div>
+            
+        </div>
+        
+    </main>
+<%- include('./includes/_footer') -%>

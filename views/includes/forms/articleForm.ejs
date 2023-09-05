@@ -1,0 +1,24 @@
+<form class="article-form" action="/admin/ajouter/article" method="POST" encType="multipart/form-data">
+    <div class="flex">
+        <div class="block">
+            <div class="drop-zone__wrapper flex-center">
+                <div role="button" class="drop-zone article-drop-zone">
+                    <span class="drop-zone__prompt">Glisser le fichier ou cliquer pour télécharger</span>
+                    <input required type="file" name="imageFile" accept="image/png, image/jpeg" class="drop-zone__input" />        
+                </div>
+            </div>
+            
+            <label for="articleTitle">Titre de l'article :
+                <input required id="articleTitle" name="title" type="text" />
+            </label>
+            
+            <label>Contenu de l'article :
+                <textarea required class="article-content" name="content" rows="15"></textarea>
+            </label>
+        </div>
+    </div>
+    <div class="create-article-btn__wrapper flex-center">
+        <button id="addArticleButton" type="submit" class="create-article__btn primary-btn">Ajouter l'article</button>
+    </div>
+    
+</form>

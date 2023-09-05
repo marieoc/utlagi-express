@@ -1,0 +1,169 @@
+<%- include('../includes/_header.ejs') -%>
+    <main class="container user-account-page">
+        <div>
+            <nav class="breadcrumb">
+                <ul>
+                    <li><a href="/">Accueil</a></li>
+                    <li><a href="/moncompte">Mon compte</a></li>
+                </ul>
+            </nav>
+            
+            <div class="account-section-wrapper">
+                <h1>Bonjour, <%= user.fname %> !</h1>
+                <div class="dashboard">
+                    <div class="side-navbar">
+                        <h2>Mon compte</h2>
+                        <nav>
+                            <ul>
+                                <li>
+                                    <button class="dashboard-tab active-sections-tab">
+                                        <p class="navbar-tab">Aperçu général</p>
+                                        <p class="navbar-tab-details">Aperçu de vos informations générales et de vos commandes</p>
+                                    </a>
+                                </li>
+                                <li>
+                                    <button class="dashboard-tab">
+                                        <p class="navbar-tab">Mon profil</p>
+                                        <p class="navbar-tab-details">Changer ses informations personnelles ou son mot de passe</p>
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="dashboard-tab">
+                                        <p class="navbar-tab">Carnet d'adresses</p>
+                                        <p class="navbar-tab-details">Gérer ses adresses</p>
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="dashboard-tab">
+                                        <p class="navbar-tab">Mes commandes</p>
+                                        <p class="navbar-tab-details">Historique des commandes</p>
+                                    </button>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                    
+                    <div class="user-sections-wrapper sections-wrapper">
+                        <section class="section account-overview">
+                            <div class="flex-cols">
+                                <div class="user-data-overview">
+                                    
+                                    <h2 class="username"><%= user.lname ? user.lname : '' %> <%= user.fname %></h2>
+                                    <p><%= user.email %></p>
+                                    <div>
+                                        <p><span class="bold-title">Adresse de facturation : </span> 
+                                        <% if (activeBillingAddress) { %>
+                                                <%= activeBillingAddress.street %>
+                                                <%= activeBillingAddress.zipCode %>
+                                                <%= activeBillingAddress.city %>
+                                                <%= activeBillingAddress.country %>
+                                        <% } else { %>
+                                            Non renseignée</p>
+                                        <% } %>
+                                    </div>
+                                    <div>
+                                        <p><span class="bold-title">Adresse de livraison : </span> 
+                                        <% if (activeDeliveryAddress) { %>
+                                                <%= activeDeliveryAddress.street %>
+                                                <%= activeDeliveryAddress.zipCode %>
+                                                <%= activeDeliveryAddress.city %>
+                                                <%= activeDeliveryAddress.country %>
+                                        <% } else { %>
+                                            Non renseignée</p>
+                                        <% } %>
+                                    </div>
+                                    <div>
+                                        <p><span class="bold-title">Numéro de téléphone :</span>
+                                        <% if (user.phoneNumber) { %>
+                                            <%= user.phoneNumber %>
+                                        <% } else { %>
+                                        Non renseigné</p>
+                                        <% } %>
+                                    </div>
+                                </div>
+                                <div class="btns">
+                                    <a  class="see-shopping-cart-btn primary-btn" href="/panier">Voir mon panier</a>
+                                    <a class="see-wishlist-btn" href="/moncompte/listedenvie">Voir ma liste d'envie</a>
+                                </div>
+                            </div>
+                            <div class="order-overview">
+                                <p><span class="bold-title">Dernière commande en date :</span></p>
+                                <div class="order-card">
+                                    <% if (user.orderBook.length === 0) { %>
+                                        <p>Vous n'avez aucune commande pour le moment.</p>
+                                    <% } else { %>
+                                        <p><span class="bold-title">Numéro de commande :</span> 0000000000000000</p>
+                                        <p><span class="bold-title">12/04/2023 | 14:03</span></p>
+                                        <p><span class="bold-title">Status :</span> En préparation</p>
+                                        <p><span class="bold-title">Produit(s) :</span> Contes de Norvège</p>
+                                    <% } %>
+                                </div>
+                            </div>
+                        </section>
+                        
+                        <section class="section">
+                            <h2>Ajouter ou mettre à jour mes informations personnelles</h2>
+                            <div class="modify-data">
+                                <%- include('../includes/forms/userForm.ejs') %>
+                                <%- include('../includes/forms/userPasswordForm.ejs') %>
+                                <div class="delete-account-btn-wrapper flex-center">
+                                    <button class="delete-account-btn">Supprimer mon compte</button>
+                                </div>
+                            </div>
+                        </section>
+                        
+                        <section class="section address-section">
+                            <h2>Gérer mes adresses</h2>
+                            <!-- display all addresses created and redirect to modify/form -->
+                            <% if (user.address.length > 0) { %>
+                                <% for (let i=0; i < user.address.length; i++) { %>
+                                    <div class="address-card">
+                                        <div>
+                                            <p><%= user.address[i].street %>,</p>
+                                            <p><%= user.address[i].zipCode %> <%= user.address[i].city %></p>
+                                            <p><%= user.address[i].country %></p>
+                                        </div>
+                                        <div class="btn-wrapper">
+                                            <a class="primary-btn" href="/moncompte/gerer/adresse/<%= user.address[i].id %>" >Modifier</a>
+                                        </div>
+                                    </div>
+                                <% } %>
+                            <% } else { %>
+                                <div class="center">
+                                    <p>Aucune adresse renseignée pour le moment.</p>
+                                </div>
+                            <% } %>
+                            <div class="flex-center">
+                                <a class="primary-btn" href="/moncompte/ajouter/adresse">Ajouter une adresse</a>
+                            </div>
+                        </section>
+                        
+                        <section class="section">
+                            <h2>Aperçu de mon historique de commandes</h2>
+                                <% if (user.orderBook.length === 0) { %>
+                                <div class="flex-center">
+                                    <p>Vous n'avez aucune commande pour le moment.</p>
+                                </div>
+                                <% } else { %>
+                                    <% for (let i=0; i < user.orderBook.length; i++) { %>
+                                        <div class="order-card">
+                                            <p><span class="bold-title">Numéro de commande :</span> <%= user.orderBook.orderId %></p>
+                                            <p><span class="bold-title"><%= user.orderBook.dateOfPurchase %></span></p>
+                                            <p><span class="bold-title">Status :</span> <%= user.orderBook.orderStatus %></p>
+                                            <p><span class="bold-title">Produit(s) :</span> <%= user.orderBook.purchasedProducts %></p>
+                                        </div>
+                                    <% } %>
+                                <% } %>
+                        </section>
+                        
+                    </div>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        
+    </main>
+<%- include('../includes/_footer.ejs') -%>

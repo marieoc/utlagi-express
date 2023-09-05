@@ -1,0 +1,22 @@
+<form class="admin-form" action="/admin/gerer/informations" method="POST" encType="multipart/form-data">
+    <div class="flex">
+        <div class="block">
+            <label for="lname">Nom :
+                <input id="lname" name="lname" type="text" value="<%= admin.lname %>" />
+            </label>
+            <label for="fname">Prénom :
+                <input id="fname" name="fname" type="text" value="<%= admin.fname %>" />
+            </label>
+            <label for="email">Adresse mail :
+                <input id="email" name="email" type="email" value="<%= admin.email %>" />
+            </label>
+            <label for="tel">Téléphone :
+                <input id="tel" name="tel" type="tel" value="<%= admin.phoneNumber %>" />
+            </label>
+        </div>
+    </div>
+    <div class="modify-data-btn__wrapper flex-center">
+        <button id="modifyAdminButton" type="submit" class="modify-data__btn primary-btn">Modifier les informations personnelles</button>
+    </div>
+    
+</form>
